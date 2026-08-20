@@ -7,10 +7,14 @@ require("dotenv").config();
 
 const connectDB = require("./config/db");
 
+const employeeRoute = require("./routes/employeeRoute");
+
 const app = express();
 
 // MiddleWare
 app.use(express.json());
+
+app.use("/employee", employeeRoute);
 
 connectDB();
 

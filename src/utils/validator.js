@@ -6,11 +6,11 @@ const isValid = (input) => {
   return true;
 };
 
-const isValidName = (input) => /^[a-zA-Z ]+$/;
+const isValidName = (input) => /^[a-zA-Z ]+$/.test(input);
 
-const isValidEmail = (input) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const isValidEmail = (input) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input);
 
 const isValidPassword = (input) =>
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,20}$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,20}$/.test(input);
 
 module.exports = { isValid, isValidName, isValidEmail, isValidPassword };
