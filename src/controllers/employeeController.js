@@ -141,7 +141,6 @@ const getProfile = async (req, res) => {
 
 // Update Profile
 const updateProfile = async (req, res) => {
-  
   try {
     let employeeId = req.employeeId;
     let employeeData = req.body;
@@ -217,4 +216,54 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { signupEmployee, loginEmployee, getProfile, updateProfile };
+// Delete Profile
+const deleteProfile = async (req, res) => {
+  try {
+    let employeeId = req.employeeId;
+
+    let deleteEmp = await employeeModel.findByIdAndDelete(employeeId);
+
+    if (!deleteEmp) {
+      return res
+        .status(404)
+        .json({ msg: "Employee Not Found Or Already Exists" });
+    }
+
+    return res.status(200).json({ msg: "Profile Deleted Successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Internal Server Error" });
+  }
+};
+
+// Get All Employee
+const getAllEmployee = async (req, res) => {
+  try {
+    let employees = await employeeModel.find().select("-password");
+    let totalEmployees = await employeeModel.countDocuments();
+
+    if (employees.length === 0) {
+      return res.status(404).json({ msg: "No Employees Found" });
+    }
+
+    return res.status(200).json({
+      msg: "Employees Data Fetched Successfully",
+      employeesData: {
+        "Total Employees": totalEmployees,
+        employees,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Internal Server Error" });
+  }
+};
+
+module.exports = {
+  signupEmployee,
+  loginEmployee,
+  getProfile,
+  updateProfile,
+  deleteProfile,
+  getAllEmployee,
+};
