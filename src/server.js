@@ -8,6 +8,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 
 const employeeRoute = require("./routes/employeeRoute");
+const leaveRoute = require("./routes/leaveRoute");
 
 const app = express();
 
@@ -15,6 +16,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/employee", employeeRoute);
+
+app.use("/leaves", leaveRoute);
 
 connectDB();
 
